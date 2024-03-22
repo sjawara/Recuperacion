@@ -4,6 +4,9 @@
     global $pedido; 
     $pedido = null; 
 
+    global $factura;
+    $factura = null;
+
     $query = "SELECT * FROM Pedidos ORDER BY fecha_pedido DESC LIMIT 1";
     $resultado = $conn->query($query);
     if ($resultado) {
@@ -12,14 +15,22 @@
         echo "Error al ejecutar la consulta: " . $conexion->error;
     }
 
+    $query = "SELECT * FROM Facturas ORDER BY fecha_factura DESC LIMIT 1";
+    $resultado = $conn->query($query);
+    if ($resultado) {
+        $factura = $resultado->fetch_assoc();
+    } else {
+        echo "Error al ejecutar la consulta: " . $conexion->error;
+    }
+
     function fechaP(){
-        global $pedido;
-        return $pedido['fecha_pedido'];
+        global $factura;
+        return $factura['fecha_factura'];
     }
 
     function numP(){
-        global $pedido;
-        return $pedido['id_pedido'];
+        global $factura;
+        return $factura['id_factura'];
     }
 
     function nomCli(){
